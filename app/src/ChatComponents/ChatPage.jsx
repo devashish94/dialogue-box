@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import io from 'socket.io-client'
 import ChatComponent from './ChatComponent'
-import Sidebar from './Sidebar'
+import Sidebar from '../Sidebar/Sidebar'
 
 // console.log('Full Global');
 
