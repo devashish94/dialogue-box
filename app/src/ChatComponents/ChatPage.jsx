@@ -9,7 +9,6 @@ import Sidebar from '../Sidebar/Sidebar'
 export default function ChatPage() {
   const [conversations, setConversations] = useState([])
   const [socket, setSocket] = useState(null)
-  const [id, setID] = useState(0)
   const [params, setParams] = useSearchParams()
   const [sidebar, setSidebar] = useState(false)
   const [userList, setUserList] = useState(null)
@@ -21,12 +20,13 @@ export default function ChatPage() {
 
   useEffect(() => {
     // console.log('useEffect');
-    const socketLocation = window.location.origin.replace('5173', '3000');
-    const localSocket = io(socketLocation)
+    // const socketLocation = window.location.origin.replace('5173', '3000');
+    // const localSocket = io(socketLocation)
+    const localSocket = io('https://api-dialogue-box.onrender.com')
     setSocket(localSocket)
 
     localSocket.on('connect', data => {
-      const url = `${window.location.origin.replace('5173', '3000')}/app?username=${username}&id=${localSocket.id}&room=${room}`
+      const url = `https://api-dialogue-box.onrender.com/app?username=${username}&id=${localSocket.id}&room=${room}`
       fetch(url)
         .then(response => {
           return response.json()
