@@ -1,0 +1,11 @@
+-- Things to address later
+
+- Scroll to the bottom, whenever user submits the message. [WRONG => always scroll bottom / scroll bottom on new incoming message]
+- Implement the function of the Sidebar closing button.
+- Emoji Picker
+- Submit button shows some other SVG when the input field is empty.
+- Vertical Padding refinements in the ChatComponent.
+- Consecutive messages from the same user stop showing the 'username' after the first message.
+- 'Room Name' button onClick opens the participant list from the right.
+- Browser / Device agnostic time. [Firefox / Chrome / Android all showing time in different formats] new Date().toLocaleTimeString()
+
