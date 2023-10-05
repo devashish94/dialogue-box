@@ -21,7 +21,7 @@ export default function ChatComponent({ username, room, conversations, submitAct
             </svg>
           </button>
           <button onClick={() => setPartSidebar(!partSidebar)} className="text-xl font-bold w-full hover:bg-neutral-700 py-2 rounded-md flex items-center justify-center">
-            <p className="self-end">{room}</p>
+            <p className="self-end">Group Chat</p>
           </button>
           <button className="p-2 hover:bg-neutral-700 rounded-full">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
