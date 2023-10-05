@@ -14,6 +14,8 @@ export default function ChatPage() {
   const [sidebar, setSidebar] = useState(false)
   const [userList, setUserList] = useState(null)
 
+  const [partSidebar, setPartSidebar] = useState(true)
+
   // console.log('ChatPage Global');
 
   const username = params.get('username')
@@ -93,8 +95,15 @@ export default function ChatPage() {
 
           {/* right column */}
           <div className='h-full flex-grow flex justify-evenly py-0'>
-            <ChatComponent sidebar={() => setSidebar(!sidebar)} username={username} room={room} conversations={conversations} userList={userList} submitAction={e => handle(e)} />
+            <ChatComponent sidebar={() => setSidebar(!sidebar)} partSidebar={() => setPartSidebar(!partSidebar)} username={username} room={room} conversations={conversations} submitAction={e => handle(e)} />
           </div>
+{/* 
+          <div
+            // className={`${partSidebar ? 'left-0' : '-left-full'} absolute flex w-full sm:w-72 h-full px-4 py-3 bg-neutral-800 transition-all duration-300 ease-in-out`} >
+            className={`${partSidebar ? 'translate-x-0 sm:translate-0' : 'translate-x-full sm:translate-0'} sm:translate-0 absolute sm:static flex w-full sm:w-72 h-full px-4 py-3 bg-neutral-800 transition-all duration-300 ease-in-out`} >
+            <Participants sidebar={() => setPartSidebar(!partSidebar)} username={username} userList={userList} />
+          </div > */}
+
         </div>
       </div>
     </>

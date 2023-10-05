@@ -2,16 +2,11 @@ import { useState } from 'react'
 import Chat from "./Chat"
 import Participants from "../Participants"
 
-export default function ChatComponent({ username, room, conversations, submitAction, sidebar, userList }) {
-  const [partSidebar, setPartSidebar] = useState(false)
+export default function ChatComponent({ username, room, conversations, submitAction, sidebar, partSidebar}) {
 
   return (
     <>
 
-      <div
-        className={`${partSidebar ? 'left-0' : '-left-full'} absolute flex w-full sm:w-72 h-full px-4 py-3 bg-neutral-800 transition-all duration-300 ease-in-out`} >
-        <Participants sidebar={() => setPartSidebar(!partSidebar)} username={username} userList={userList} />
-      </div >
 
       <div className=' flex flex-col justify-between bg-neutral-900 flex-grow rounded-md space-y-2 px-2 py-2'>
         <nav className="flex w-full items-center space-x-6 px-3 bg-neutral-900">
@@ -20,7 +15,7 @@ export default function ChatComponent({ username, room, conversations, submitAct
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button>
-          <button onClick={() => setPartSidebar(!partSidebar)} className="text-xl font-bold w-full hover:bg-neutral-700 py-2 rounded-md flex items-center justify-center">
+          <button onClick={partSidebar} className="sm:pointer-events-none text-xl font-bold w-full hover:bg-neutral-700 py-2 rounded-md flex items-center justify-center">
             <p className="self-end">Group Chat</p>
           </button>
           <button className="p-2 hover:bg-neutral-700 rounded-full">
