@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import io from 'socket.io-client'
-import ChatComponent from './ChatComponent'
-import Sidebar from '../Sidebar/Sidebar'
+import ChatComponent from './ChatComponents/ChatComponent'
+import Sidebar from './Sidebar/Sidebar'
+import Participants from './Participants'
 
 // console.log('Full Global');
 
@@ -85,13 +86,14 @@ export default function ChatPage() {
       <div className='w-screen h-screen bg-black text-neutral-300'>
         <div className='h-full w-full flex'>
           {/* left column */}
-          <div id='sidebar' className={`${sidebar ? '' : 'hidden'} absolute sm:static flex w-full sm:w-72 h-full px-4 py-3 bg-neutral-800`}>
-            <Sidebar username={username} userList={userList} />
+          <div id='sidebar' className={`${sidebar ? 'left-0' : '-left-full'} absolute sm:static flex w-full sm:w-72 h-full px-4 py-3 bg-neutral-800 transition-all duration-300 ease-in-out`}>
+            <Sidebar sidebar={() => setSidebar(!sidebar)} username={username} userList={userList} />
+            {/* <Participants sidebar={() => setSidebar(!sidebar)} username={username} userList={userList} /> */}
           </div>
 
           {/* right column */}
           <div className='h-full flex-grow flex justify-evenly py-0'>
-            <ChatComponent sidebar={() => setSidebar(!sidebar)} username={username} room={room} conversations={conversations} submitAction={e => handle(e)} />
+            <ChatComponent sidebar={() => setSidebar(!sidebar)} username={username} room={room} conversations={conversations} userList={userList} submitAction={e => handle(e)} />
           </div>
         </div>
       </div>
