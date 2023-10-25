@@ -71,8 +71,7 @@ export default function ChatComponent({ username, room, conversations, submitAct
             <input type="text" onChange={handleEmojiInput} className="w-full h-9 rounded-lg px-3 bg-gray-50 outline-none" placeholder="Find your perfect Emoji" />
           </div>
           <div className="w-full h-full flex flex-wrap items-stretch gap-2 overflow-y-auto rounded-lg p-1">
-            {emojiArray && emojiArray
-              .filter(emoji => {
+            {emojiArray?.filter(emoji => {
                 if (emojiSearch.length == 0) {
                   return true
                 }

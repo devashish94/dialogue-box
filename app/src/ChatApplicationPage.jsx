@@ -23,13 +23,13 @@ export default function ChatPage() {
   useEffect(() => {
     // console.log('useEffect');
     // const localSocket = io(socketLocation)
-    // const localSocket = io('https://api-dialogue-box.onrender.com')
-    const localSocket = io('http://localhost:3000')
+    const localSocket = io('https://api-dialogue-box.onrender.com')
+    // const localSocket = io('http://localhost:3000')
     setSocket(localSocket)
 
     localSocket.on('connect', data => {
-      // const url = `https://localhost:3000/app?username=${username}&id=${localSocket.id}&room=${room}`
-      const url = `http://localhost:3000/app?username=${username}&id=${localSocket.id}&room=${room}`
+      // const url = `http://localhost:3000/app?username=${username}&id=${localSocket.id}&room=${room}`
+      const url = `http://api-dialogue-box.onrender.com/app?username=${username}&id=${localSocket.id}&room=${room}`
       fetch(url)
         .then(response => {
           return response.json()
