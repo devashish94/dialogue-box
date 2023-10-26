@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import Chat from "./Chat"
 import { emoji } from '../emoji'
 // import Participants from "../Participants"
@@ -26,6 +26,29 @@ export default function ChatComponent({ username, room, conversations, submitAct
     const input = document.getElementById('input')
     input.value += text
   }
+
+  // Verify that this useMemo() is even working as expected
+  const filteredEmojiArray = useMemo(() => emojiArray?.filter(emoji => {
+    if (emojiSearch.length == 0) {
+      return true
+    }
+    if (emoji.name.includes(emojiSearch)) {
+      return true
+    }
+    return false
+  }))
+
+
+  // THIS IS THE FILTER WITHOUT useMemo()
+  // const filteredEmojiArray = emojiArray?.filter(emoji => {
+  //   if (emojiSearch.length == 0) {
+  //     return true
+  //   }
+  //   if (emoji.name.includes(emojiSearch)) {
+  //     return true
+  //   }
+  //   return false
+  // })
 
   return (
     <>
@@ -70,20 +93,30 @@ export default function ChatComponent({ username, room, conversations, submitAct
           <div className="flex">
             <input type="text" onChange={handleEmojiInput} className="w-full h-9 rounded-lg px-3 bg-gray-50 outline-none" placeholder="Find your perfect Emoji" />
           </div>
-          <div className="w-full h-full flex flex-wrap items-stretch gap-2 overflow-y-auto rounded-lg p-1">
+
+          {/* EMOJI RENDER WITH filter() ATTACHED */}
+          {/* <div className="w-full h-full flex flex-wrap items-stretch gap-2 overflow-y-auto rounded-lg p-1">
             {emojiArray?.filter(emoji => {
-                if (emojiSearch.length == 0) {
-                  return true
-                }
-                if (emojiSearch.length > 0 && emoji.name.includes(emojiSearch)) {
-                  return true
-                } 
-                return false 
-              })
+              if (emojiSearch.length == 0) {
+                return true
+              }
+              if (emoji.name.includes(emojiSearch)) {
+                return true
+              }
+              return false
+            })
               .map((emoji, i) => {
-                return <button onClick={appendEmojiChatField} key={i} className="hover hover:scale-150 m-[1px] w-8 h-8 text-xl transition-all duration-100 ease-in-out">{emoji.symbol}</button>
+                return <button onClick={appendEmojiChatField} key={i} className="hover hover:scale-150 m-[1px] w-8 h-8 text-xl transition-all duration-[50ms] ease-in-out">{emoji.symbol}</button>
               })}
+          </div> */}
+
+          <div className="w-full h-full flex flex-wrap items-stretch gap-2 overflow-y-auto rounded-lg p-1">
+            {filteredEmojiArray?.map((emoji, i) => {
+              return <button onClick={appendEmojiChatField} key={i} className="hover hover:scale-150 m-[1px] w-8 h-8 text-xl transition-all duration-[50ms] ease-in-out">{emoji.symbol}</button>
+            })}
           </div>
+
+
         </div>
 
         {/* chat input field */}
