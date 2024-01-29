@@ -1,11 +1,11 @@
 import file from '../EmojiDB/test.txt'
 
-export function readContent(callFunction) {
+export const readContent = (callFunction) => {
   fetch(file)
     .then(res => res.text())
     .then(fileContentWithNewLine => fileContentWithNewLine.split('\n'))
     .then(fileContentArray => fileContentArray.map(fileContent => fileContent.split('\t')))
-    .then(data => data.map((emoji, i) => {
+    .then(data => data.map((emoji) => {
       return {
         name: String(emoji[1]).toLowerCase(),
         symbol: emoji[0],

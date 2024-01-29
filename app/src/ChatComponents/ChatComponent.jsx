@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from "react"
 import Chat from "./Chat"
-import { emoji } from '../emoji'
-// import Participants from "../Participants"
-
 import { readContent } from '../EmojiDB/index'
+import EmojiPicker from "./EmojiPicker"
+import ChatInput from "./ChatInput"
 
 export default function ChatComponent({ username, room, conversations, submitAction, sidebar, partSidebar }) {
   const [emojiPicker, setEmojiPicker] = useState(false)
@@ -36,7 +35,7 @@ export default function ChatComponent({ username, room, conversations, submitAct
       return true
     }
     return false
-  }))
+  }), [emojiArray])
 
 
   // THIS IS THE FILTER WITHOUT useMemo()
@@ -52,8 +51,8 @@ export default function ChatComponent({ username, room, conversations, submitAct
 
   return (
     <>
-      <div className=' flex flex-col h-full justify-between flex-grow rounded-md space-y-2 relative oveflow-y-auto'>
-        <nav className="flex w-full items-center justify-between space-x-6 px-3 py-1 shadow bg-gray-100 sm:bg-gray-50">
+      <div className=' flex flex-col h-full justify-between flex-grow rounded-md relative oveflow-y-auto'>
+        <nav className="flex w-full items-center justify-between space-x-6 px-3 py-1 shadow bg-gray-100 sm:bg-gray-50 transition-all duration-200">
 
           <div className="flex space-x-2 items-center justify-between">
 
@@ -80,7 +79,8 @@ export default function ChatComponent({ username, room, conversations, submitAct
         </nav>
 
         {/* chat area */}
-        <div className='flex-1 h-full rounded-md flex flex-col px-3 pt-8 pb-0 space-y-2 overflow-y-auto'>
+        {/* <div className='flex-1 h-full rounded-md flex flex-col px-3 pt-8 pb-0 space-y-2 overflow-y-auto'> */}
+        <div className='flex-1 h-full rounded-md flex flex-col px-3 py-3 space-y-2 overflow-y-auto'>
           {
             conversations && conversations.map(function (conversation, index) {
               return (<Chat key={index} chat={conversation} side={conversation.username === username ? 'right' : 'left'} />)
@@ -88,36 +88,9 @@ export default function ChatComponent({ username, room, conversations, submitAct
           }
         </div>
 
-        {/* emoji picker */}
-        <div className={`absolute ${emojiPicker ? 'bottom-16' : '-bottom-full'} border-2 border-gray-300 transition-all duration-200 h-1/2 lg:[500px] w-full lg:w-[700px] rounded-lg z-0 bg-gray-200 shadow-lg flex flex-col py-2 px-2 space-y-2`}>
-          <div className="flex">
-            <input type="text" onChange={handleEmojiInput} className="w-full h-9 rounded-lg px-3 bg-gray-50 outline-none" placeholder="Find your perfect Emoji" />
-          </div>
+        <EmojiPicker emojiPicker={emojiPicker} handleEmojiInput={handleEmojiInput} appendEmojiChatField={appendEmojiChatField} emojiArray={filteredEmojiArray} />
 
-          {/* EMOJI RENDER WITH filter() ATTACHED */}
-          {/* <div className="w-full h-full flex flex-wrap items-stretch gap-2 overflow-y-auto rounded-lg p-1">
-            {emojiArray?.filter(emoji => {
-              if (emojiSearch.length == 0) {
-                return true
-              }
-              if (emoji.name.includes(emojiSearch)) {
-                return true
-              }
-              return false
-            })
-              .map((emoji, i) => {
-                return <button onClick={appendEmojiChatField} key={i} className="hover hover:scale-150 m-[1px] w-8 h-8 text-xl transition-all duration-[50ms] ease-in-out">{emoji.symbol}</button>
-              })}
-          </div> */}
-
-          <div className="w-full h-full flex flex-wrap items-stretch gap-2 overflow-y-auto rounded-lg p-1">
-            {filteredEmojiArray?.map((emoji, i) => {
-              return <button onClick={appendEmojiChatField} key={i} className="hover hover:scale-150 m-[1px] w-8 h-8 text-xl transition-all duration-[50ms] ease-in-out">{emoji.symbol}</button>
-            })}
-          </div>
-
-
-        </div>
+        {/* <ChatInput toggleEmojiPicker={() => setEmojiPicker(!emojiPicker)} closeEmojiPicker={() => setEmojiPicker(false)} /> */}
 
         {/* chat input field */}
         <form onSubmit={submitAction} className='w-full flex items-center space-x-3 px-1 py-2 shadow bg-gray-100 z-10 h-14'>
